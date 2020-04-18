@@ -40,6 +40,7 @@ private:
     int nWorldWidth = 40;
     int nWorldHeight = 30;
     bool bLastToggleState = true;
+    bool bTilesChanged = true;
     
     vector<sEdge> vecEdges;
     vector<sRayVertex> vecVisibilityPolygonPoints;
@@ -58,6 +59,14 @@ private:
                     world[(y + sy) * pitch + (x + sx)].edge_id[j] = 0;
                 }
         
+        // Add edges at the border of the screen
+        float borderWidth = (float)nWorldWidth * fBlockWidth;
+        float borderHeight = (float)nWorldHeight *fBlockWidth;
+        vecEdges.push_back({0, 0, borderWidth, 0});                         // Top
+        vecEdges.push_back({0, 0, 0, borderHeight});                        // Left
+        vecEdges.push_back({0, borderWidth, borderWidth, borderHeight});    // Bottom
+        vecEdges.push_back({borderWidth, 0, borderWidth, borderHeight});    // Right
+
         // Iterate through region from top left to bottom right
         for (int x = 0; x < w; x++)
             for (int y = 0; y < h; y++)
@@ -223,9 +232,9 @@ private:
                 // and 1 a little bit on either side to peek around the corner
                 for(int j = 0; j < 3; j++)
                 {
-                    if (j == 0) ang = base_ang - 0.0001f;
+                    if (j == 0) ang = base_ang - 0.00001f;
                     else if (j == 1) ang = base_ang;
-                    else if (j == 2) ang = base_ang + 0.0001f;
+                    else if (j == 2) ang = base_ang + 0.00001f;
                     
                     // Create ray along angle for required distance
                     rdx = radius * cosf(ang);
@@ -303,28 +312,26 @@ public:
         float fSourceX = GetMouseX();
         float fSourceY = GetMouseY();
         
-        bool tilesChanged = false;
-        
         // Set tile map block to on or off
         if(GetMouse(0).bPressed)
         {
             // Toggle exists of cell at mouse location
             int i = ((int)fSourceY / (int)fBlockWidth) * nWorldWidth + ((int)fSourceX / (int)fBlockWidth);
             bLastToggleState = world[i].exist = !world[i].exist;
-            tilesChanged = true;
+            bTilesChanged = true;
         }
         if(GetMouse(0).bHeld)
         {
             int i = ((int)fSourceY / (int)fBlockWidth) * nWorldWidth + ((int)fSourceX / (int)fBlockWidth);
             world[i].exist = bLastToggleState;
-            tilesChanged = true;
+            bTilesChanged = true;
         }
            
-        if(tilesChanged)
+        if(bTilesChanged)
         {
             // Take a region of "TileMap" and convert it to "PolyMap"
             ConvertTileMaptoPolyMap(0, 0, 40, 30, fBlockWidth, nWorldWidth);
-            tilesChanged = false;
+            bTilesChanged = false;
         }
         
         if (GetMouse(1).bHeld)
@@ -333,6 +340,18 @@ public:
         }
         
         int nRaysCast = (int)vecVisibilityPolygonPoints.size();
+        
+        // Remove duplicate points
+        auto it = unique(
+                         vecVisibilityPolygonPoints.begin(),
+                         vecVisibilityPolygonPoints.end(),
+                         [&](const sRayVertex &t1, const sRayVertex &t2)
+        {
+            return fabs(t1.x - t2.x) < 0.1f && fabs(t1.y - t2.y) < 0.1f;
+        });
+        vecVisibilityPolygonPoints.resize(distance(vecVisibilityPolygonPoints.begin(), it));
+        
+        int nRaysDrawn = (int)vecVisibilityPolygonPoints.size();
         
         // Drawing
         Clear(olc::BLACK);
@@ -343,7 +362,7 @@ public:
             // Draw each triangle in the fan
             for (int i = 0; i < vecVisibilityPolygonPoints.size() -1; i++)
             {
-                DrawTriangle(fSourceX,
+                FillTriangle(fSourceX,
                              fSourceY,
                              vecVisibilityPolygonPoints[i].x,
                              vecVisibilityPolygonPoints[i].y,
@@ -352,7 +371,7 @@ public:
             }
             
             // Draw from end back to start
-            DrawTriangle(fSourceX,
+            FillTriangle(fSourceX,
                          fSourceY,
                          vecVisibilityPolygonPoints[vecVisibilityPolygonPoints.size() - 1].x,
                          vecVisibilityPolygonPoints[vecVisibilityPolygonPoints.size() - 1].y,
@@ -362,12 +381,14 @@ public:
         }
         
         // Draw Blocks from TileMap
+        int nBlockCount = 0;
         for (int x = 0; x < nWorldWidth; x++)
             for (int y = 0; y < nWorldHeight; y++)
             {
                 if(world[y * nWorldWidth + x].exist)
                 {
                     FillRect(x * fBlockWidth, y* fBlockWidth, fBlockWidth, fBlockWidth, olc::BLUE);
+                    nBlockCount++;
                 }
             }
 
@@ -381,7 +402,7 @@ public:
         
         // Draw Info
         FillRect(0, 0, ScreenWidth(), fBlockWidth, olc::BLUE);
-        DrawString(4, 4, "Rays Cast: " + to_string(nRaysCast));
+        DrawString(4, 4, "Blocks: " + to_string(nBlockCount) + " Edges: " + to_string(vecEdges.size()) + " Rays Cast: " + to_string(nRaysCast) + " Rays Drawn: " + to_string(nRaysDrawn));
         
         return true;
     }

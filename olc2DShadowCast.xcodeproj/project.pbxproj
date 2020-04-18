@@ -30,6 +30,7 @@
 		F86786B5244A9E8100D075E4 /* olcPixelGameEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olcPixelGameEngine.h; sourceTree = "<group>"; };
 		F86786BC244A9F5500D075E4 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		F86786BE244A9F6500D075E4 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		F86786C1244B837900D075E4 /* olcFirstTest.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = olcFirstTest.profdata; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +52,7 @@
 				F86786B2244A9E8100D075E4 /* olcFirstTest */,
 				F86786B1244A9E8000D075E4 /* Products */,
 				F86786BB244A9F5400D075E4 /* Frameworks */,
+				F86786C0244B837900D075E4 /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +80,14 @@
 				F86786BC244A9F5500D075E4 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F86786C0244B837900D075E4 /* OptimizationProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				F86786C1244B837900D075E4 /* olcFirstTest.profdata */,
+			);
+			path = OptimizationProfiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F86786AB244A9E8000D075E4 /* Build configuration list for PBXProject "olcFirstTest" */;
+			buildConfigurationList = F86786AB244A9E8000D075E4 /* Build configuration list for PBXProject "olc2DShadowCast" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -280,6 +290,7 @@
 		F86786B9244A9E8100D075E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2U7QR2R483;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -290,6 +301,7 @@
 		F86786BA244A9E8100D075E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2U7QR2R483;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -300,7 +312,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F86786AB244A9E8000D075E4 /* Build configuration list for PBXProject "olcFirstTest" */ = {
+		F86786AB244A9E8000D075E4 /* Build configuration list for PBXProject "olc2DShadowCast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F86786B6244A9E8100D075E4 /* Debug */,

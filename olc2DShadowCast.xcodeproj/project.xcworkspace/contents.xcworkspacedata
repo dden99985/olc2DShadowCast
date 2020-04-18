@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:olcFirstTest.xcodeproj">
+      location = "self:/Users/dave.denotter/Dev/olcFirstTest/olc2DShadowCast.xcodeproj">
    </FileRef>
 </Workspace>
