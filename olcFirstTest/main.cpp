@@ -16,6 +16,13 @@ struct sCell
     bool exist = false;
 };
 
+struct sRayVertex
+{
+    float angle;  // Angle from source
+    float x;
+    float y;
+};
+
 #define NORTH 0
 #define SOUTH 1
 #define EAST 2
@@ -32,8 +39,10 @@ private:
     sCell *world;
     int nWorldWidth = 40;
     int nWorldHeight = 30;
+    bool bLastToggleState = true;
     
     vector<sEdge> vecEdges;
+    vector<sRayVertex> vecVisibilityPolygonPoints;
     
     void ConvertTileMaptoPolyMap(int sx, int sy, int w, int h, float fBlockWidth, int pitch)
     {
@@ -190,6 +199,95 @@ private:
     }
     
     
+    void CalculateVisibilityPolygon(float ox, float oy, float radius)
+    {
+        // Clean up existing polygon
+        vecVisibilityPolygonPoints.clear();
+        
+        // Loop through each edge in PolyMap
+        for(auto &e1 : vecEdges)
+        {
+            // Take the start point, then the end point
+            for(int i = 0; i < 2; i++)
+            {
+                // Calculate the vector of the ray from source to this point
+                float rdx, rdy;
+                rdx = (i == 0 ? e1.sx : e1.ex) - ox;
+                rdy = (i == 0 ? e1.sy : e1.ey) - oy;
+                
+                // Calculate the angle from source to this point
+                float base_ang = atan2f(rdy, rdx);
+                
+                float ang = 0;
+                // For each point, cast 3 rays, 1 directly at the point
+                // and 1 a little bit on either side to peek around the corner
+                for(int j = 0; j < 3; j++)
+                {
+                    if (j == 0) ang = base_ang - 0.0001f;
+                    else if (j == 1) ang = base_ang;
+                    else if (j == 2) ang = base_ang + 0.0001f;
+                    
+                    // Create ray along angle for required distance
+                    rdx = radius * cosf(ang);
+                    rdy = radius * sinf(ang);
+                    
+                    float min_t1 = INFINITY;
+                    float min_px = 0;
+                    float min_py = 0;
+                    float min_ang = 0;
+                    bool bValid = false;
+                    
+                    // Check for ray intersection with all edges
+                    for(auto &e2 : vecEdges)
+                    {
+                        // Create line segment vector for the edge we're intersecting with
+                        float sdx = e2.ex - e2.sx;
+                        float sdy = e2.ey - e2.sy;
+                        
+                        // Skip rays that are co-liner with each other
+                        if(fabs(sdx - rdx) > 0.0f && fabs(sdy - rdy) > 0.0f)
+                        {
+                            // t2 is the normalized distance from line segment start to line segment end of intersect point
+                            float t2 = (rdx * (e2.sy - oy) + (rdy * (ox - e2.sx))) / (sdx * rdy - sdy * rdx);
+                            // t1 is normalized distance from source along ray to ray length of intersect point
+                            float t1 = (e2.sx + sdx * t2 - ox) / rdx;
+                            
+                            // If intersect point exists along ray, and along line segment then intersect point is valid
+                            if (t1 > 0 && t2 >= 0 && t2 <= 1.0f)
+                            {
+                                // Check if this intersect point is the closest one to the source.
+                                // If it is, store this point and reject others
+                                if (t1 < min_t1)
+                                {
+                                    min_t1 = t1;
+                                    min_px = ox + rdx * t1;
+                                    min_py = oy + rdy * t1;
+                                    min_ang = atan2f(min_py - oy, min_px - ox);
+                                    bValid = true;
+                                }
+                            }
+                        }
+                    }
+                    
+                    if(bValid)
+                    {
+                        // Add intersection point to visibility polygon perimeter
+                        vecVisibilityPolygonPoints.push_back({min_ang, min_px, min_py});
+                    }
+                    
+                }
+            }
+        }
+        
+        // Sort permineter points by angle from source.  This will allow us to draw a triangle fan.
+        sort(vecVisibilityPolygonPoints.begin(),
+             vecVisibilityPolygonPoints.end(),
+             [&](const sRayVertex &t1, const sRayVertex &t2)
+        {
+            return t1.angle < t2.angle;
+        });
+        
+    }
     
 public:
     bool OnUserCreate() override
@@ -208,11 +306,17 @@ public:
         bool tilesChanged = false;
         
         // Set tile map block to on or off
-        if(GetMouse(0).bReleased)
+        if(GetMouse(0).bPressed)
         {
-            // Toggle exists at mouse location
+            // Toggle exists of cell at mouse location
             int i = ((int)fSourceY / (int)fBlockWidth) * nWorldWidth + ((int)fSourceX / (int)fBlockWidth);
-            world[i].exist = !world[i].exist;
+            bLastToggleState = world[i].exist = !world[i].exist;
+            tilesChanged = true;
+        }
+        if(GetMouse(0).bHeld)
+        {
+            int i = ((int)fSourceY / (int)fBlockWidth) * nWorldWidth + ((int)fSourceX / (int)fBlockWidth);
+            world[i].exist = bLastToggleState;
             tilesChanged = true;
         }
            
@@ -223,8 +327,39 @@ public:
             tilesChanged = false;
         }
         
+        if (GetMouse(1).bHeld)
+        {
+            CalculateVisibilityPolygon(fSourceX, fSourceY, 1000.0f);
+        }
+        
+        int nRaysCast = (int)vecVisibilityPolygonPoints.size();
+        
         // Drawing
         Clear(olc::BLACK);
+        
+        // If drawing rays, set an offscreen texture as our target buffer
+        if (GetMouse(1).bHeld && vecVisibilityPolygonPoints.size() > 1)
+        {
+            // Draw each triangle in the fan
+            for (int i = 0; i < vecVisibilityPolygonPoints.size() -1; i++)
+            {
+                DrawTriangle(fSourceX,
+                             fSourceY,
+                             vecVisibilityPolygonPoints[i].x,
+                             vecVisibilityPolygonPoints[i].y,
+                             vecVisibilityPolygonPoints[i+1].x,
+                             vecVisibilityPolygonPoints[i+1].y);
+            }
+            
+            // Draw from end back to start
+            DrawTriangle(fSourceX,
+                         fSourceY,
+                         vecVisibilityPolygonPoints[vecVisibilityPolygonPoints.size() - 1].x,
+                         vecVisibilityPolygonPoints[vecVisibilityPolygonPoints.size() - 1].y,
+                         vecVisibilityPolygonPoints[0].x,
+                         vecVisibilityPolygonPoints[0].y);
+            
+        }
         
         // Draw Blocks from TileMap
         for (int x = 0; x < nWorldWidth; x++)
@@ -243,6 +378,10 @@ public:
             FillCircle(e.sx, e.sy, 3, olc::RED);
             FillCircle(e.ex, e.ey, 3, olc::RED);
         }
+        
+        // Draw Info
+        FillRect(0, 0, ScreenWidth(), fBlockWidth, olc::BLUE);
+        DrawString(4, 4, "Rays Cast: " + to_string(nRaysCast));
         
         return true;
     }
