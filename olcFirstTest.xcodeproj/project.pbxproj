@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F86786B4244A9E8100D075E4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F86786B3244A9E8100D075E4 /* main.cpp */; };
+		F86786BD244A9F5500D075E4 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86786BC244A9F5500D075E4 /* OpenGL.framework */; };
+		F86786BF244A9F6500D075E4 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86786BE244A9F6500D075E4 /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +28,8 @@
 		F86786B0244A9E8000D075E4 /* olcFirstTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = olcFirstTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86786B3244A9E8100D075E4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F86786B5244A9E8100D075E4 /* olcPixelGameEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olcPixelGameEngine.h; sourceTree = "<group>"; };
+		F86786BC244A9F5500D075E4 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		F86786BE244A9F6500D075E4 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F86786BF244A9F6500D075E4 /* GLUT.framework in Frameworks */,
+				F86786BD244A9F5500D075E4 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +50,7 @@
 			children = (
 				F86786B2244A9E8100D075E4 /* olcFirstTest */,
 				F86786B1244A9E8000D075E4 /* Products */,
+				F86786BB244A9F5400D075E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +69,15 @@
 				F86786B5244A9E8100D075E4 /* olcPixelGameEngine.h */,
 			);
 			path = olcFirstTest;
+			sourceTree = "<group>";
+		};
+		F86786BB244A9F5400D075E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F86786BE244A9F6500D075E4 /* GLUT.framework */,
+				F86786BC244A9F5500D075E4 /* OpenGL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
