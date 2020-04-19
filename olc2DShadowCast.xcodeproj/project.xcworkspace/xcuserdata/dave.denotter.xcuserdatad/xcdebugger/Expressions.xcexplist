@@ -13,5 +13,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "ShadowCasting2D::CalculateVisibilityPolygon(float, float, float):main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "e1">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

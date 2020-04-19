@@ -25,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F8666176244B8968003CAEA3 /* olc2DShadowCast.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = olc2DShadowCast.profdata; sourceTree = "<group>"; };
 		F86786B0244A9E8000D075E4 /* olcFirstTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = olcFirstTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86786B3244A9E8100D075E4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F86786B5244A9E8100D075E4 /* olcPixelGameEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olcPixelGameEngine.h; sourceTree = "<group>"; };
@@ -49,7 +50,7 @@
 		F86786A7244A9E8000D075E4 = {
 			isa = PBXGroup;
 			children = (
-				F86786B2244A9E8100D075E4 /* olcFirstTest */,
+				F86786B2244A9E8100D075E4 /* olc2DShadowCast */,
 				F86786B1244A9E8000D075E4 /* Products */,
 				F86786BB244A9F5400D075E4 /* Frameworks */,
 				F86786C0244B837900D075E4 /* OptimizationProfiles */,
@@ -64,13 +65,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F86786B2244A9E8100D075E4 /* olcFirstTest */ = {
+		F86786B2244A9E8100D075E4 /* olc2DShadowCast */ = {
 			isa = PBXGroup;
 			children = (
 				F86786B3244A9E8100D075E4 /* main.cpp */,
 				F86786B5244A9E8100D075E4 /* olcPixelGameEngine.h */,
 			);
-			path = olcFirstTest;
+			path = olc2DShadowCast;
 			sourceTree = "<group>";
 		};
 		F86786BB244A9F5400D075E4 /* Frameworks */ = {
@@ -86,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				F86786C1244B837900D075E4 /* olcFirstTest.profdata */,
+				F8666176244B8968003CAEA3 /* olc2DShadowCast.profdata */,
 			);
 			path = OptimizationProfiles;
 			sourceTree = "<group>";
