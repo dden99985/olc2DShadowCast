@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F86786B4244A9E8100D075E4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F86786B3244A9E8100D075E4 /* main.cpp */; };
+		F845D24E244C0C9C00C92B2D /* light_cast.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = F845D24D244C0A4900C92B2D /* light_cast.png */; };
+		F845D25B244C0DC300C92B2D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F86786B3244A9E8100D075E4 /* main.cpp */; };
 		F86786BD244A9F5500D075E4 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86786BC244A9F5500D075E4 /* OpenGL.framework */; };
 		F86786BF244A9F6500D075E4 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86786BE244A9F6500D075E4 /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F86786AE244A9E8000D075E4 /* CopyFiles */ = {
+		F845D251244C0D5100C92B2D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -22,19 +23,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		F86786AE244A9E8000D075E4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				F845D24E244C0C9C00C92B2D /* light_cast.png in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F8666176244B8968003CAEA3 /* olc2DShadowCast.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = olc2DShadowCast.profdata; sourceTree = "<group>"; };
+		F845D24D244C0A4900C92B2D /* light_cast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_cast.png; sourceTree = "<group>"; };
+		F845D253244C0D5100C92B2D /* olc2DShadowCast */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = olc2DShadowCast; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86786B0244A9E8000D075E4 /* olcFirstTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = olcFirstTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86786B3244A9E8100D075E4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F86786B5244A9E8100D075E4 /* olcPixelGameEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olcPixelGameEngine.h; sourceTree = "<group>"; };
 		F86786BC244A9F5500D075E4 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		F86786BE244A9F6500D075E4 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
-		F86786C1244B837900D075E4 /* olcFirstTest.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = olcFirstTest.profdata; sourceTree = "<group>"; };
+		F893CF8C244C03DA009643BD /* olc2DShadowCast.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = olc2DShadowCast.profdata; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F845D250244C0D5100C92B2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F86786AD244A9E8000D075E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,7 +72,7 @@
 				F86786B2244A9E8100D075E4 /* olc2DShadowCast */,
 				F86786B1244A9E8000D075E4 /* Products */,
 				F86786BB244A9F5400D075E4 /* Frameworks */,
-				F86786C0244B837900D075E4 /* OptimizationProfiles */,
+				F893CF8B244C03DA009643BD /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				F86786B0244A9E8000D075E4 /* olcFirstTest */,
+				F845D253244C0D5100C92B2D /* olc2DShadowCast */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +90,7 @@
 			children = (
 				F86786B3244A9E8100D075E4 /* main.cpp */,
 				F86786B5244A9E8100D075E4 /* olcPixelGameEngine.h */,
+				F845D24D244C0A4900C92B2D /* light_cast.png */,
 			);
 			path = olc2DShadowCast;
 			sourceTree = "<group>";
@@ -83,11 +104,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F86786C0244B837900D075E4 /* OptimizationProfiles */ = {
+		F893CF8B244C03DA009643BD /* OptimizationProfiles */ = {
 			isa = PBXGroup;
 			children = (
-				F86786C1244B837900D075E4 /* olcFirstTest.profdata */,
-				F8666176244B8968003CAEA3 /* olc2DShadowCast.profdata */,
+				F893CF8C244C03DA009643BD /* olc2DShadowCast.profdata */,
 			);
 			path = OptimizationProfiles;
 			sourceTree = "<group>";
@@ -95,6 +115,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F845D252244C0D5100C92B2D /* olc2DShadowCast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F845D258244C0D5100C92B2D /* Build configuration list for PBXNativeTarget "olc2DShadowCast" */;
+			buildPhases = (
+				F845D24F244C0D5100C92B2D /* Sources */,
+				F845D250244C0D5100C92B2D /* Frameworks */,
+				F845D251244C0D5100C92B2D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = olc2DShadowCast;
+			productName = olc2DShadowCast;
+			productReference = F845D253244C0D5100C92B2D /* olc2DShadowCast */;
+			productType = "com.apple.product-type.tool";
+		};
 		F86786AF244A9E8000D075E4 /* olcFirstTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F86786B8244A9E8100D075E4 /* Build configuration list for PBXNativeTarget "olcFirstTest" */;
@@ -118,9 +155,15 @@
 		F86786A8244A9E8000D075E4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = Computronix;
 				TargetAttributes = {
+					F845D252244C0D5100C92B2D = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
 					F86786AF244A9E8000D075E4 = {
 						CreatedOnToolsVersion = 11.4.1;
 					};
@@ -140,22 +183,50 @@
 			projectRoot = "";
 			targets = (
 				F86786AF244A9E8000D075E4 /* olcFirstTest */,
+				F845D252244C0D5100C92B2D /* olc2DShadowCast */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F845D24F244C0D5100C92B2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F86786AC244A9E8000D075E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86786B4244A9E8100D075E4 /* main.cpp in Sources */,
+				F845D25B244C0DC300C92B2D /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		F845D259244C0D5100C92B2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2U7QR2R483;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F845D25A244C0D5100C92B2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2U7QR2R483;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		F86786B6244A9E8100D075E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -314,6 +385,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F845D258244C0D5100C92B2D /* Build configuration list for PBXNativeTarget "olc2DShadowCast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F845D259244C0D5100C92B2D /* Debug */,
+				F845D25A244C0D5100C92B2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F86786AB244A9E8000D075E4 /* Build configuration list for PBXProject "olc2DShadowCast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
